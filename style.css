@@ -21,6 +21,15 @@ body {
   margin-bottom: 20px;
 }
 
+.app-icon {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(125, 211, 252, 0.35);
+  margin-bottom: 10px;
+}
+
 .app-header h1 {
   margin: 0 0 8px;
   font-size: 1.5rem;
