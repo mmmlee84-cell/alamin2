@@ -222,6 +222,23 @@ body {
   margin-top: 20px;
 }
 
+.weather {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #a7b0c0;
+}
+
+.weather strong {
+  font-size: 1.3rem;
+  color: #7dd3fc;
+}
+
 .ring-modal {
   position: fixed;
   inset: 0;

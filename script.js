@@ -258,3 +258,22 @@ function makeSpan(text) {
 renderAlarms();
 updateClock();
 setInterval(updateClock, 1000);
+
+const WEATHER_API_URL =
+  "https://api.openweathermap.org/data/2.5/weather?lat=37.5665&lon=126.9780&appid=cd8ec98db61a6400bf1cb64ef918e8f5&units=metric";
+const weatherTempEl = document.getElementById("weatherTemp");
+
+async function loadWeather() {
+  try {
+    const res = await fetch(WEATHER_API_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const celsius = data.main?.temp;
+    if (typeof celsius !== "number") throw new Error("온도 정보 없음");
+    weatherTempEl.textContent = `${celsius.toFixed(1)}°C`;
+  } catch (e) {
+    weatherTempEl.textContent = "조회 실패";
+  }
+}
+
+loadWeather();
