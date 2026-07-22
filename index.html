@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>간편 알람</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>⏰ 간편 알람</h1>
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <section class="add-alarm">
+      <input type="time" id="alarmTime" />
+      <input type="text" id="alarmLabel" placeholder="라벨 (선택)" maxlength="20" />
+      <div class="repeat-days" id="repeatDays">
+        <button type="button" data-day="0">일</button>
+        <button type="button" data-day="1">월</button>
+        <button type="button" data-day="2">화</button>
+        <button type="button" data-day="3">수</button>
+        <button type="button" data-day="4">목</button>
+        <button type="button" data-day="5">금</button>
+        <button type="button" data-day="6">토</button>
+      </div>
+      <button id="addBtn" class="add-btn">알람 추가</button>
+    </section>
+
+    <section class="alarm-list-wrap">
+      <ul id="alarmList" class="alarm-list"></ul>
+      <p id="emptyMsg" class="empty-msg">등록된 알람이 없습니다.</p>
+    </section>
+  </div>
+
+  <!-- 알람 울림 모달 -->
+  <div id="ringModal" class="ring-modal hidden">
+    <div class="ring-box">
+      <div class="ring-icon">⏰</div>
+      <div class="ring-time" id="ringTime"></div>
+      <div class="ring-label" id="ringLabel"></div>
+      <div class="ring-actions">
+        <button id="snoozeBtn">5분 후 다시 알림</button>
+        <button id="stopBtn">끄기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: linear-gradient(135deg, #1f2333, #2a2f45);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px;
+  color: #f2f2f7;
+}
+
+.app {
+  width: 100%;
+  max-width: 420px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+}
+
+.clock {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  color: #7dd3fc;
+}
+
+.add-alarm {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-alarm input[type="time"],
+.add-alarm input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: #f2f2f7;
+  font-size: 1rem;
+}
+
+.add-alarm input[type="time"] {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.repeat-days {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.repeat-days button {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.repeat-days button.active {
+  background: #7dd3fc;
+  color: #10131f;
+  border-color: #7dd3fc;
+  font-weight: 600;
+}
+
+.add-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #7dd3fc;
+  color: #10131f;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-btn:active {
+  transform: scale(0.98);
+}
+
+.alarm-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alarm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alarm-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.alarm-item.disabled {
+  opacity: 0.45;
+}
+
+.alarm-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alarm-time {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.alarm-meta {
+  font-size: 0.8rem;
+  color: #a7b0c0;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.alarm-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: rgba(255,255,255,0.2);
+  border-radius: 999px;
+  transition: 0.2s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+  background: #4ade80;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #f87171;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #8b93a5;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+.ring-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 20, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.ring-modal.hidden {
+  display: none;
+}
+
+.ring-box {
+  background: #23273a;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.ring-icon {
+  font-size: 3rem;
+  animation: shake 0.6s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+.ring-time {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.ring-label {
+  color: #a7b0c0;
+  margin-top: 4px;
+  min-height: 1.2em;
+}
+
+.ring-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.ring-actions button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#snoozeBtn {
+  background: rgba(255,255,255,0.12);
+  color: #f2f2f7;
+}
+
+#stopBtn {
+  background: #f87171;
+  color: #2a0d0d;
+}
