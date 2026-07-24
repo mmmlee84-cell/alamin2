@@ -102,3 +102,17 @@
 .news-retry-btn:active {
   transform: scale(0.98);
 }
+
+.ring-news-briefing {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  max-height: 220px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.ring-news-briefing:empty {
+  display: none;
+}

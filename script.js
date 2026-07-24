@@ -90,6 +90,17 @@ function triggerAlarm(alarm) {
   ringLabelEl.textContent = alarm.label || "";
   ringModal.classList.remove("hidden");
   startBeep();
+
+  // 뉴스 브리핑은 알람 소리와 독립적으로 동작한다.
+  // 실패하더라도 이미 재생 중인 알람 소리에는 영향을 주지 않는다 (기술명세서.md 9.4절).
+  fetchRecentNews(DEFAULT_NEWS_KEYWORD, 3)
+    .then(({ items }) => {
+      renderNewsBriefing(items);
+      speakBriefing(buildBriefingText(items));
+    })
+    .catch(() => {
+      // 뉴스 브리핑 실패는 무시한다.
+    });
 }
 
 function startBeep() {
@@ -125,6 +136,8 @@ function stopBeep() {
 function closeRingModal() {
   ringModal.classList.add("hidden");
   stopBeep();
+  stopBriefing();
+  renderNewsBriefing([]);
   activeAlarmId = null;
 }
 

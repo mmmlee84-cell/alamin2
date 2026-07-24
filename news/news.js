@@ -7,7 +7,7 @@ const DEFAULT_NEWS_KEYWORD = '경제';
 
 const NEWS_FETCH_TIMEOUT_MS = 5000;
 
-function fetchRecentNews(keyword) {
+function fetchRecentNews(keyword, count = 5) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), NEWS_FETCH_TIMEOUT_MS);
 
@@ -27,6 +27,7 @@ function fetchRecentNews(keyword) {
       }
       return res.json();
     })
+    .then(data => ({ ...data, items: (data.items || []).slice(0, count) }))
     .finally(() => clearTimeout(timeoutId));
 }
 
@@ -156,3 +157,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   newsBtn.addEventListener('click', () => loadNews(DEFAULT_NEWS_KEYWORD));
 });
+
+// 알람 연동 브리핑 (기술명세서.md 9번). 재생 타이밍은 9.6절 기준 미확정 사항이라
+// 여기서는 "알람 소리와 동시에 화면 표시 + 음성 안내를 시작"하는 것까지만 구현한다.
+
+const NEWS_ORDINALS = ['첫번째', '두번째', '세번째', '네번째', '다섯번째'];
+
+function buildBriefingText(items) {
+  return (items || [])
+    .map((item, index) => {
+      const ordinal = NEWS_ORDINALS[index] || `${index + 1}번째`;
+      return `${ordinal} 뉴스, ${stripHtmlTags(item.title)}.`;
+    })
+    .join(' ');
+}
+
+function renderNewsBriefing(items) {
+  const container = document.getElementById('ringNewsBriefing');
+  if (!container) return;
+
+  container.innerHTML = '';
+  (items || []).forEach(item => {
+    container.appendChild(buildNewsCard(item));
+  });
+}
+
+function speakBriefing(text) {
+  if (!text || !window.speechSynthesis) return;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ko-KR';
+  window.speechSynthesis.speak(utterance);
+}
+
+function stopBriefing() {
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+}
