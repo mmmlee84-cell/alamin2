@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>간편 알람</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="news/news.css">
 </head>
 <body>
   <div class="app">
@@ -38,6 +39,11 @@
       <span>서울 현재 기온</span>
       <strong id="weatherTemp">--°C</strong>
     </section>
+
+    <section class="news-section" id="newsSection">
+      <button id="newsBtn" class="news-btn">📰 최근뉴스</button>
+      <div id="newsList" class="news-list"></div>
+    </section>
   </div>
 
   <!-- 알람 울림 모달 -->
@@ -53,6 +59,8 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
+  <script src="news/news.js"></script>
 </body>
 </html>
